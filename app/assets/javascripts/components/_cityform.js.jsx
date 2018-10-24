@@ -2,7 +2,7 @@ class CityForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        inputField: 'Budapest'
+        inputField: this.props.defaultCity
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,7 +28,7 @@ class CityForm extends React.Component {
 
   render() {
     return (
-      <div class="col-6 ml-auto mr-auto text-center mt-5">
+      <div class="col-10 col-md-6 ml-auto mr-auto text-center mt-5">
         <form  onSubmit={this.handleSubmit}>
             <div class="form-group">        
               <input  class="form-control" id="city" type="text"  placeholder="Enter city" value={this.state.inputField} onChange={this.handleChange} />

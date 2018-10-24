@@ -1,7 +1,6 @@
 
 // import { OWM_API_KEY } from 'config/weather.js'
 
-const OWM_API_KEY = "4d40341dd26882eedd85c3f706e4bcaa";
 
 class Main extends React.Component {
   constructor(props) {
@@ -27,11 +26,9 @@ class Main extends React.Component {
 		    <div class="container">
 		      <div class="row">
 		      	<div class="col-12 text-center">
-		      		<p> 	
-		      		
-		      		</p>
 		        	<BigMessage message="What's up with the weather?" />
-		      		<CityForm handleData={this.handleData} />
+		        	{this.props.city}
+		      		<CityForm handleData={this.handleData} defaultCity={this.props.city} />
 		        </div>
 		      </div>
 		    </div>
