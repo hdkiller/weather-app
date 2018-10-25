@@ -11,7 +11,12 @@ class WeatherController < ApplicationController
 		resp = {
 			'temperature' => data['main']['temp'],
 			'condition' => data['weather'][0]['main'],
-			'description'=> data['weather'][0]['description']
+			'description'=> data['weather'][0]['description'],
+			'humidity'=> data['main']['humidity'],
+			'wind'=> data['wind']['speed'],
+			'clouds'=> data['clouds']['all'],
+
+			'data' => data
 		}
 	else
 		resp = {

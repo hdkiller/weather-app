@@ -56,16 +56,19 @@ class Weather extends React.Component {
 
     console.log("load");
     var city = this.props.city
-    fetch(`/weather/index?q=${city},hu`)
+    fetch(`/weather/index?q=${city}`)
     .then(results => { 
         return results.json() 
         }).then(data => {
             console.log(data)
             this.setState({ 
                 currentCity: city,
-                temperature: data.temperature,
+                temperature: Math.round(data.temperature * 10 ) / 10,
                 condition: data.condition,
-                description:  data.description
+                description:  data.description,
+                humidity: data.humidity,
+                wind: data.wind,
+                clouds: data.clouds
             })
         })
   }
@@ -82,7 +85,7 @@ class Weather extends React.Component {
 
       
 
-                <Grid item xs={8}>
+                <Grid item xs={7}>
                           <Grid item xs={12}>
                     <Typography variant="title" gutterBottom>
                         {this.state.condition}
@@ -90,10 +93,10 @@ class Weather extends React.Component {
                 </Grid>
                     <Grid container spacing={16}>
 
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                                 <img height="52%" src="/md-weather-iconset/weather-fog.png"/>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={8}>
                                 <Typography variant="h1" gutterBottom>
                                     {this.state.temperature}&deg;C
                                 </Typography>
@@ -108,14 +111,14 @@ class Weather extends React.Component {
                     </Grid>
 
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={5}>
                     <Grid container spacing={16}>
                             <Grid item xs={4}>
                                 <WaterPercentIcon size={54} />
                             </Grid>
                             <Grid item xs={8}>
                                 <Typography variant="h3" gutterBottom>
-                                     55%
+                                     {this.state.humidity}%
                                 </Typography>
                             </Grid>
     
@@ -124,7 +127,7 @@ class Weather extends React.Component {
                             </Grid>
                             <Grid item xs={8}>
                                 <Typography variant="h3" noWrap >
-                                    15%
+                                    {this.state.clouds}%
                                 </Typography>
                             </Grid>
 
@@ -134,7 +137,7 @@ class Weather extends React.Component {
                             </Grid>
                             <Grid item xs={8}>
                                 <Typography variant="h3" noWrap >
-                                    12
+                                    {this.state.wind}
                                     <span className={classes.metric}>
                                         km/h
                                     </span>
