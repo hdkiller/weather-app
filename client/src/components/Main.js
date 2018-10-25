@@ -35,7 +35,6 @@ class Main extends React.Component {
 		      		<CityForm handleData={this.handleData} defaultCity={this.props.city} />
 		      	</Grid>
 	            <Grid item xs={6}  justify = "center">		
-
 					<Weather city={ this.state.city ? this.state.city : "Budapest" }/>
 				</Grid>				
 			</Grid>

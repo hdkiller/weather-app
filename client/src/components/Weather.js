@@ -14,6 +14,9 @@ import Typography from '@material-ui/core/Typography';
 
 import { WeatherWindyIcon,WaterPercentIcon,WeatherRainyIcon } from 'mdi-react';
 
+import moment from 'moment'
+
+
 const styles = {
   card: {
     maxWidth: 600,
@@ -33,6 +36,9 @@ class Weather extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+        time: "",
+        day: "",
+        dt: 0,
         temperature: ":(",
         condition: "...",
         description: "",
@@ -40,9 +46,21 @@ class Weather extends React.Component {
     };
 
   }
-
+    componentWillUnmount() {
+      clearInterval(this.interval);
+    }
 
   componentDidMount() {
+    setInterval( () => {
+        this.setState({
+          time : moment.unix(this.state.dt).format('HH:mm'),
+          day: moment.unix(this.state.dt).format('dddd')
+        })
+    },1000)
+
+    setInterval( () => {
+        this._loadWeatherData();  
+    },1000*60*3) // 3 min
     this._loadWeatherData();  
   }
 
@@ -67,7 +85,8 @@ class Weather extends React.Component {
                 condition: data.condition,
                 description:  data.description,
                 humidity: data.humidity,
-                wind: data.wind,
+                dt: data.data.dt,
+                wind:  Math.round(data.wind * 10 ) / 10,
                 clouds: data.clouds
             })
         })
@@ -87,6 +106,10 @@ class Weather extends React.Component {
 
                 <Grid item xs={7}>
                           <Grid item xs={12}>
+                    <Typography variant="h3" gutterBottom>
+                        {this.state.day}
+                    </Typography>
+
                     <Typography variant="title" gutterBottom>
                         {this.state.condition}
                     </Typography>
@@ -103,9 +126,8 @@ class Weather extends React.Component {
                             </Grid>
                             <Grid item xs={12}>
                               <Typography variant="caption">
-                                  {this.props.city}
-                                    {this.props.currentCity}
-
+                                  {this.props.city} - {this.state.time}
+                                 
                               </Typography>
                             </Grid>
                     </Grid>
