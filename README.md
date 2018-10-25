@@ -4,3 +4,13 @@ Get a key from [OpenWeatherMap API](https://home.openweathermap.org/api_keys) an
 ```
 OWM_API_KEY=yourapikey
 ```
+
+start with:
+```
+foreman start -p 3000
+```
+or
+
+```
+rake start
+```
